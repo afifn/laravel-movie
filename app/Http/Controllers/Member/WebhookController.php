@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Models\Package;
+use App\Models\Transaction;
+use App\Models\UserPremium;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class WebhookController extends Controller
 {
-    public function handle(Request $request)
+    public function handler(Request $request)
     {
         \Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION', false);
         \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
@@ -22,20 +26,46 @@ class WebhookController extends Controller
         if ($transactionStatus == 'capture') {
             if ($fraudStatus == 'challenge') {
                 $status = 'challenge';
-            } else if ($fraudStatus == 'success') {
+            } else if ($fraudStatus == 'accept') {
                 $status = 'success';
             }
         } else if ($transactionStatus == 'settlement') {
             $status = 'settlement';
         } else if (
-            $transactionStatus == 'cancel' ||
-            $transactionStatus == 'deny' ||
-            $transactionStatus == 'expire'
+            $transactionStatus == 'cancel' || $transactionStatus == 'deny' || $transactionStatus == 'expire'
         ) {
             $status = 'failure';
         } else if ($transactionStatus == 'pending') {
             $status = 'pending';
         }
+
+        $transactions = Transaction::where('transaction_code', $orderId)->first();
+        $package = Package::find($transactions->package_id);
+
+        if ($status === 'success') {
+            $userPremium = UserPremium::where('user_id', $transactions->user_id)->first();
+
+            // cek userPremiun masih premium
+            if ($userPremium) {
+                //renewal subscription
+                $endOfSubscription = $userPremium->end_of_subscription;
+                $date = Carbon::createFromFormat('Y-m-d', $endOfSubscription); // ubah ke object carbon
+                $newEndOfSubscription = $date->addDays($transactions->package->max_days)->format('Y-m-d'); // tambah hari ke end_of_subscription
+
+                $userPremium->update([
+                    'package_id' => $transactions->package->id,
+                    'end_of_subscription' => $newEndOfSubscription
+                ]);
+            } else {
+                UserPremium::create([
+                    'package_id' => $package->id,
+                    'user_id' => $transactions->user_id,
+                    'end_of_subscription' => now()->addDays($package->max_days),
+                ]);
+            }
+        }
+
+        $transactions->update(['status' => $status]);
 
         return response()->json(null);
     }

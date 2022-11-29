@@ -11,6 +11,8 @@ use App\Http\Controllers\Member\MovieController as MemberMovieController;
 use App\Http\Controllers\Member\PricingController;
 use App\Http\Controllers\Member\RegisterController;
 use App\Http\Controllers\Member\TransactionController as MemberTransactionController;
+use App\Http\Controllers\Member\WebhookController;
+use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,6 +53,8 @@ Route::controller(MemberDashboardController::class)->prefix('dashboard')->middle
 });
 
 Route::view('/payment-success', 'member.payment-success');
+Route::post('/payment-notification', [WebhookController::class, 'handler'])
+    ->withoutMiddleware(VerifyCsrfToken::class);
 
 /* panggil controller admin */
 Route::prefix('admin')->middleware('admin.auth')->group(function () {
