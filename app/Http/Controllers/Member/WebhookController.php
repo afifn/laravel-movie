@@ -39,8 +39,7 @@ class WebhookController extends Controller
             $status = 'pending';
         }
 
-        $transactions = Transaction::where('transaction_code', $orderId)->first();
-        $package = Package::find($transactions->package_id);
+        $transactions = Transaction::with('package')->where('transaction_code', $orderId)->first();
 
         if ($status === 'success') {
             $userPremium = UserPremium::where('user_id', $transactions->user_id)->first();
@@ -58,9 +57,9 @@ class WebhookController extends Controller
                 ]);
             } else {
                 UserPremium::create([
-                    'package_id' => $package->id,
+                    'package_id' => $transactions->package->id,
                     'user_id' => $transactions->user_id,
-                    'end_of_subscription' => now()->addDays($package->max_days),
+                    'end_of_subscription' => now()->addDays($transactions->package->max_days),
                 ]);
             }
         }

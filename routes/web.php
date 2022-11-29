@@ -11,6 +11,7 @@ use App\Http\Controllers\Member\MovieController as MemberMovieController;
 use App\Http\Controllers\Member\PricingController;
 use App\Http\Controllers\Member\RegisterController;
 use App\Http\Controllers\Member\TransactionController as MemberTransactionController;
+use App\Http\Controllers\Member\UserPremiumController;
 use App\Http\Controllers\Member\WebhookController;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
@@ -43,7 +44,7 @@ Route::controller(LoginController::class)->group(function () {
 /* controller member */
 Route::controller(MemberDashboardController::class)->prefix('dashboard')->middleware('auth')->group(function () {
     Route::get('/',  'index')->name('member.dashboard');
-    Route::get('/subscription', 'subscription')->name('member.subscription');
+    Route::get('/subscription', [UserPremiumController::class, 'index'])->name('member.subscription');
 
     Route::controller(MemberMovieController::class)->prefix('movie')->group(function () {
         Route::get('/{id}', 'show')->name('member.movie.show');
