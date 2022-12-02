@@ -12,8 +12,8 @@
                 {{ ucwords($user_premium->package->name) }} Package
             </div>
             <div class="flex items-center gap-[10px]">
-                <div class="progress-bar w-[248px] h-[6px] bg-softpur rounded-full">
-                    <div class="progress bg-[#22C58B] w-[113px] h-full rounded-full"></div>
+                <div class="progress-bar w-[200px] h-[6px] bg-softpur rounded-full">
+                    <div class="progress bg-[#22C58B] w-[10px] h-full rounded-full"></div>
                 </div>
                 <div class="text-stream-gray text-sm">
                     11 / 30 days
@@ -78,11 +78,31 @@
             by clicking the button below. Make sure that you have read our
             terms & conditions beforehand.
         </p>
-        <a href="#!" class="px-[19px] py-[13px] bg-[#FE4848] rounded-full text-center">
-            <span class="text-white font-semibold text-base">
-                Stop Subscribe
-            </span>
-        </a>
+        <form id="delete-subscription" action="{{ route('member.subscription.delete', $user_premium->id) }}"
+            method="post">
+            @csrf
+            @method('delete')
+            <button id="delete-subscription-btn" type="submit"
+                class="px-[19px] py-[13px] bg-[#FE4848] rounded-full text-center">
+                <span class="text-white font-semibold text-base">
+                    Stop Subscribe
+                </span>
+            </button>
+        </form>
     </div>
     <!-- /Stop Subscribe -->
+@endsection
+
+@section('js')
+    <script>
+        document
+            .getElementById('delete-subscription-btn')
+            .addEventListener('click', function(event) {
+                event.preventDefault();
+                const confirmDelete = confirm('Apakah yakin ingin berhenti langganan?');
+                if (confirmDelete) {
+                    document.getElementById('delete-subscription').submit();
+                }
+            })
+    </script>
 @endsection

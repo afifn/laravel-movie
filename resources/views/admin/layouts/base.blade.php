@@ -23,6 +23,8 @@
     <link rel="stylesheet" href={{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}>
     <!-- Daterange picker -->
     <link rel="stylesheet" href={{ asset('adminlte/plugins/daterangepicker/daterangepicker.css') }}>
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.css') }}">
 
     <!-- DataTables -->
     <link rel="stylesheet" href={{ asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}>
@@ -98,6 +100,8 @@
     <script src={{ asset('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}></script>
     <!-- AdminLTE App -->
     <script src={{ asset('adminlte/dist/js/adminlte.js') }}></script>
+    <!-- Summernote -->
+    <script src="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
 
     <!-- DataTables  & Plugins -->
     <script src={{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}></script>

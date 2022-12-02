@@ -45,6 +45,7 @@ Route::controller(LoginController::class)->group(function () {
 Route::controller(MemberDashboardController::class)->prefix('dashboard')->middleware('auth')->group(function () {
     Route::get('/',  'index')->name('member.dashboard');
     Route::get('/subscription', [UserPremiumController::class, 'index'])->name('member.subscription');
+    Route::delete('/subscription/{id}', [UserPremiumController::class, 'delete'])->name('member.subscription.delete');
 
     Route::controller(MemberMovieController::class)->prefix('movie')->group(function () {
         Route::get('/{id}', 'show')->name('member.movie.show');

@@ -19,10 +19,9 @@
 </head>
 
 <body>
-
     <section class="mx-auto w-screen relative watching-page font-poppins" id="stream">
-        <video-js id="stream-video" class="overflow-hidden h-screen w-screen">
-            <source src="https://d33kv075lir7n3.cloudfront.net/Details+Screen+Part+Final.mp4" type="video/mp4" />
+        <video-js id="stream-video" class="overflow-hidden h-screen w-screen" oncontextmenu="return false;">
+            <source src="{{ $movie->movie }}" type="video/mp4" />
             <p class="vjs-no-js text-twmdark">
                 To view this video please enable JavaScript, and consider upgrading to a
                 web browser that
@@ -30,9 +29,10 @@
             </p>
         </video-js>
 
+
         <!-- Button back to dashboard -->
         <div class="absolute top-5 left-5 z-20">
-            <a href="{{ route('member.movie.show', 1) }}">
+            <a href="{{ route('member.movie.show', $movie->id) }}">
                 <img src="{{ asset('stream/assets/images/ic_arrow-left.svg') }}"
                     class="transition-all btn-back w-[46px]" alt="stream" />
             </a>
@@ -41,7 +41,7 @@
         <!-- Video Title -->
         <div class="absolute title-video top-7 left-1/2 -translate-x-1/2 max-w-[310px] md:max-w-[620px] text-center">
             <span class="font-medium text-2xl transition-all text-white drop-shadow-md select-none">
-                Details Screen Part Final
+                {{ $movie->title }}
             </span>
         </div>
     </section>
@@ -58,8 +58,9 @@
             controls: true,
             autoplay: true,
             preload: 'auto',
-            poster: '/stream/assets/images/featured-1.webp',
-            disablePictureInPicture: true,
+            poster: <?php echo " '/storage/thumbnail/" . $movie->large_thumbnail;
+            echo "'"; ?>,
+            disablePictureInPicture: false,
             noUTitleAttributes: true
         });
 
@@ -67,15 +68,15 @@
         $(document).mousemove(function(e) {
             $('.btn-back').css({
                 "opacity": "1",
-                "transition": "all .3s"
+                "transition": "all .2s"
             })
             $('.title-video').css({
                 "opacity": "1",
-                "transition": "all .3s"
+                "transition": "all .2s"
             })
             $('.vjs-control-bar').css({
                 "opacity": "1",
-                "transition": "all .3s"
+                "transition": "all .2s"
             })
             lastTimeMouseMoved = new Date().getTime();
             setTimeout(function() {

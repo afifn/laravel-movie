@@ -1,4 +1,4 @@
-.video-js .vjs-control.vjs-button:focus{
+.video-js .vjs-control.vjs-button:focus {
     outline: none;
     border: none;
 }
@@ -8,16 +8,18 @@
     top: 50%;
     left: 50%;
 }
+
 @media screen and (min-width: 768px) {
-    .video-js .vjs-big-play-button{
+    .video-js .vjs-big-play-button {
         width: 80px;
         height: 80px;
         margin-top: -43px;
         margin-left: -43px;
     }
 }
+
 @media screen and (max-width: 767px) {
-    .video-js .vjs-big-play-button{
+    .video-js .vjs-big-play-button {
         width: 50px;
         height: 50px;
         margin-top: -23px;
@@ -26,16 +28,15 @@
 }
 
 .video-js .vjs-fullscreen-control {
-    display: none;
+    display: flex;
 }
 
 .watching-page .video-js .vjs-fullscreen-control {
-    display: none;
+    display: flex;
 }
 
 .video-js .vjs-big-play-button .vjs-icon-placeholder:before,
-.video-js .vjs-play-control.vjs-paused .vjs-icon-placeholder:before
-{
+.video-js .vjs-play-control.vjs-paused .vjs-icon-placeholder:before {
     content: "" !important;
     background: url('../images/ic_play.svg');
     background-repeat: no-repeat;
@@ -44,7 +45,7 @@
 }
 
 .video-js .vjs-play-control.vjs-paused .vjs-icon-placeholder:before,
-.video-js .vjs-play-control.vjs-playing .vjs-icon-placeholder:before{
+.video-js .vjs-play-control.vjs-playing .vjs-icon-placeholder:before {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -53,12 +54,12 @@
     height: 80px;
 }
 
-.video-js .vjs-play-control.vjs-playing .vjs-icon-placeholder:before{
+.video-js .vjs-play-control.vjs-playing .vjs-icon-placeholder:before {
     font-size: 50px;
     color: #5038edca;
 }
 
-.video-js .vjs-play-control{
+.video-js .vjs-play-control {
     position: fixed;
 }
 
@@ -67,24 +68,32 @@
     padding-left: 20px;
 }
 
-.video-js .vjs-progress-control{
+.video-js .vjs-progress-control {
     max-width: 93%;
 }
 
-.video-js .vjs-play-progress:before, .vjs-slider-horizontal .vjs-volume-level:before {
+.video-js .vjs-play-progress:before,
+.vjs-slider-horizontal .vjs-volume-level:before {
     font-size: 9px;
 }
+
 @media screen and (min-width: 768px) {
-    .video-js .vjs-play-progress:before, .vjs-slider-horizontal .vjs-volume-level:before{
-       top: -4px;
+
+    .video-js .vjs-play-progress:before,
+    .vjs-slider-horizontal .vjs-volume-level:before {
+        top: -4px;
     }
 }
+
 @media screen and (max-width: 767px) {
-    .video-js .vjs-play-progress:before, .vjs-slider-horizontal .vjs-volume-level:before{
+
+    .video-js .vjs-play-progress:before,
+    .vjs-slider-horizontal .vjs-volume-level:before {
         top: -5px;
     }
 }
-.video-js .vjs-play-progress:before{
+
+.video-js .vjs-play-progress:before {
     color: #5138ED;
 }
 
@@ -92,24 +101,26 @@
     background-color: #5138ED;
 }
 
-.video-js .vjs-progress-holder .vjs-load-progress, .video-js .vjs-progress-holder .vjs-load-progress div,
+.video-js .vjs-progress-holder .vjs-load-progress,
+.video-js .vjs-progress-holder .vjs-load-progress div,
 .video-js .vjs-progress-holder .vjs-play-progress {
     border-radius: 50px;
 }
 
-.video-js .vjs-volume-panel{
-    display: none;
+.video-js .vjs-volume-panel {
+    display: flex;
 }
 
-.video-js.vjs-fullscreen .vjs-fullscreen-control{
+.video-js.vjs-fullscreen .vjs-fullscreen-control {
     position: fixed;
 }
 
-.video-js.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder:before, .vjs-icon-fullscreen-exit:before {
+.video-js.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder:before,
+.vjs-icon-fullscreen-exit:before {
     content: "";
 }
 
-.video-js.vjs-fullscreen .vjs-fullscreen-control{
+.video-js.vjs-fullscreen .vjs-fullscreen-control {
     background: url('../images/ic_arrow-left.svg');
     background-repeat: no-repeat;
     background-size: contain;
@@ -120,24 +131,30 @@
 }
 
 @media screen and (min-width: 768px) {
-    .video-js.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder:before, .vjs-icon-fullscreen-exit:before{
+
+    .video-js.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder:before,
+    .vjs-icon-fullscreen-exit:before {
         width: 42px;
         height: 42px;
     }
 }
+
 @media screen and (max-width: 767px) {
-    .video-js.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder:before, .vjs-icon-fullscreen-exit:before{
+
+    .video-js.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder:before,
+    .vjs-icon-fullscreen-exit:before {
         width: 18px;
         height: 18px;
     }
 }
 
-.video-js .vjs-current-time{
+.video-js .vjs-current-time {
     position: fixed;
     right: 25px;
     display: block;
 }
-.video-js .vjs-remaining-time{
+
+.video-js .vjs-remaining-time {
     display: none;
 }
 

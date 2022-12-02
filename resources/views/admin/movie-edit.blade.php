@@ -76,13 +76,14 @@
                         </div>
                         <div class="form-group">
                             <label for="short-about">Short About</label>
-                            <input type="text" class="form-control" value="{{ $movie->short_about }}" id="short-about"
-                                name="short_about" placeholder="Awesome Movie">
+                            <textarea id="text" type="text" class="form-control" value="{{ $movie->short_about }}" id="short-about"
+                                maxlength="100" name="short_about" placeholder="Awesome Movie"></textarea>
+                            <span class="pull-right label label-default" id="count_message"></span>
                         </div>
                         <div class="form-group">
                             <label for="about">About</label>
-                            <input type="text" class="form-control" value="{{ $movie->about }}" id="about"
-                                name="about" placeholder="Awesome Movie">
+                            <textarea id="summernote" type="text" class="form-control" value="{{ $movie->about }}" id="about"
+                                name="about" placeholder="Awesome Movie"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Featured</label>
@@ -102,3 +103,30 @@
         </div>
     </div>
 @endsection
+
+<script>
+    $('#release-date').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+
+    var text_max = 100;
+    $('#count_message').html('0 / ' + text_max);
+
+    $('#text').keyup(function() {
+        var text_length = $('#text').val().length;
+        var text_remaining = text_max - text_length;
+
+        $('#count_message').html(text_length + ' / ' + text_max);
+    });
+
+    $(function() {
+        // Summernote
+        $('#summernote').summernote()
+
+        // CodeMirror
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+            mode: "htmlmixed",
+            theme: "monokai"
+        });
+    })
+</script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Models\Movie;
 use App\Models\UserPremium;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -11,12 +12,14 @@ class MovieController extends Controller
 {
     public function show($id)
     {
-        return view('member.detail');
+        $movie = Movie::find($id);
+        return view('member.detail', ['movie' => $movie]);
     }
 
     public function watch($id)
     {
         $userId = auth()->user()->id;
+        $movie = Movie::find($id);
 
         $userPremium = UserPremium::where('user_id', $userId)->first();
         if ($userPremium) {
@@ -26,7 +29,7 @@ class MovieController extends Controller
 
             $isValidateSubscription = $date->greaterThan(now());
             if ($isValidateSubscription) {
-                return view('member.watching');
+                return view('member.watching', ['movie' => $movie]);
             }
         }
         return redirect()->route('member.pricing');
