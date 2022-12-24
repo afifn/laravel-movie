@@ -28,9 +28,18 @@
                                             <td>{{ $transaction->id }}</td>
                                             <td>{{ $transaction->package->name }}</td>
                                             <td>{{ $transaction->user->name }}</td>
-                                            <td>{{ $transaction->amount }}</td>
+                                            <td>Rp {{ number_format($transaction->amount) }}</td>
                                             <td>{{ $transaction->transaction_code }}</td>
-                                            <td>{{ $transaction->status }}</td>
+                                            <td>
+                                                @if ($transaction->status == 'pending')
+                                                    <span class="badge bg-warning">{{ $transaction->status }}</span>
+                                                @elseif ($transaction->status == 'success')
+                                                    <span class="badge bg-success">{{ $transaction->status }}</span>
+                                                @elseif ($transaction->status == 'failure')
+                                                    <span class="badge bg-danger">{{ $transaction->status }}</span>
+                                                @endif
+
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
